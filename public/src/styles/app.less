@@ -1,0 +1,34 @@
+@import "../../../node_modules/bootstrap/less/bootstrap.less";
+
+body {
+    padding-top: 50px;
+}
+
+.main-navbar {
+    background-color: rgba(248, 248, 248, .95);
+    .navbar-nav {
+        & > .active {
+            & > a {
+                background-color: rgba(231, 231, 231, .95);
+            }
+        }
+    }
+}
+
+.page-content {
+    margin-top: 30px;
+}
+
+.articles-list {
+    .article-card {
+        .thumbnail {
+            .image-wrapper {
+                height: 180px;
+                overflow-y: hidden;
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
