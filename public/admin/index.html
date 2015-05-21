@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="/dist/app.min.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/dist/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top main-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-collapse">
+                        <span class="sr-only">Activer la navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/admin" class="navbar-brand">Mon blog - Administration</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/admin">Administration</a></li>
+                        <li><a href="/">Déconnexion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="page-content">
+            <div class="container">
+                <table class="table table-condensed table-hover table-vertical-center">
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Alias</th>
+                            <th>Contenu</th>
+                            <th>Date de publication</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="/admin/post-edition.html">Liberté</a></td>
+                            <td>liberte</td>
+                            <td>Sur mes cahiers d’écolier Sur mon pupitre et les arbres Sur le sable sur la neige ...</td>
+                            <td>01-04-2015</td>
+                            <td><button class="btn btn-danger">Supprimer</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/admin/post-edition.html">Le lac</a></td>
+                            <td>le-lac</td>
+                            <td>Ainsi, toujours poussés vers de nouveaux rivages, Dans la nuit éternelle emportés sans retour ...</td>
+                            <td>02-04-2015</td>
+                            <td><button class="btn btn-danger">Supprimer</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/admin/post-edition.html">Au lecteur</a></td>
+                            <td>au-lecteur</td>
+                            <td>La sottise, l'erreur, le péché, la lésine, Occupent nos esprits et travaillent nos corps ...</td>
+                            <td>03-04-2015</td>
+                            <td><button class="btn btn-danger">Supprimer</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/admin/post-edition.html">Élévation</a></td>
+                            <td>elevation</td>
+                            <td>Au-dessus des étangs, au-dessus des vallées, Des montagnes, des bois, des nuages, des mers ...</td>
+                            <td>04-04-2015</td>
+                            <td><button class="btn btn-danger">Supprimer</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/admin/post-edition.html">L'albatros</a></td>
+                            <td>l-albatros</td>
+                            <td>Souvent, pour s'amuser, les hommes d'équipage Prennent des albatros, vastes oiseaux des mers ...</td>
+                            <td>05-04-2015</td>
+                            <td><button class="btn btn-danger">Supprimer</button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="/admin/post-edition.html">Chanson d'automne</a></td>
+                            <td>chanson-d-automne</td>
+                            <td>Les sanglots longs Des violons De l'automne Blessent mon coeur D'une langueur Monotone ...</td>
+                            <td>06-04-2015</td>
+                            <td><button class="btn btn-danger">Supprimer</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

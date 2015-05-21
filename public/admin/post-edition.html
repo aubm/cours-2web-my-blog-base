@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="/dist/app.min.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="/dist/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top main-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-collapse">
+                        <span class="sr-only">Activer la navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/admin" class="navbar-brand">Mon blog - Administration</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/admin">Administration</a></li>
+                        <li><a href="/">Déconnexion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="page-content">
+            <div class="container">
+                <h1>Modification d'un article</h1>
+                <form enctype="multipart/form-data">
+                    <fieldset>
+                        <legend>Méta-données</legend>
+                        <div class="form-group">
+                            <label for="title">Titre</label>
+                            <input type="text" name="title" id="title" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="slug">Alias</label>
+                            <input type="text" name="slug" id="slug" class="form-control"/>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Médias</legend>
+                        <div class="form-group">
+                            <label for="illustration_original">Illustration</label>
+                            <input type="file" name="illustration_original" id="illustration_original"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="illustration_preview">Prévisualisation de l'illustration</label>
+                            <input type="file" name="illustration_preview" id="illustration_preview"/>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Contenu</legend>
+                        <div class="form-group">
+                            <label for="content_short">Contenu (version courte)</label>
+                            <textarea id="content_short" name="content_short" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Contenu</label>
+                            <textarea id="content" name="content" class="form-control"></textarea>
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
