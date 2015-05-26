@@ -1,5 +1,9 @@
 <?php
-include('../services/posts_manager.php');
+
+include('../src/posts/post.php');
+include('../src/posts/posts_manager.php');
+
+$posts_manager = new PostsManager();
 
 $post = null;
 $url_post_slug = null;
@@ -8,7 +12,7 @@ if (isset($_GET['postSlug'])) {
 }
 
 if ($url_post_slug !== null) {
-    $post = getOnePostBySlug($_GET['postSlug']);
+    $post = $posts_manager->getOnePostBySlug($_GET['postSlug']);
 }
 
 if ($post === null) {
@@ -49,11 +53,11 @@ if ($post === null) {
     <div class="container">
         <article class="text-justify">
             <header class="details-header-image">
-                <img src="images/originals/<?php echo $post['illustration_original']; ?>" class="img-responsive"/>
+                <img src="images/originals/<?php echo $post->getIllustrationOriginal(); ?>" class="img-responsive"/>
             </header>
-            <h1><?php echo $post['title']; ?></h1>
+            <h1><?php echo $post->getTitle(); ?></h1>
             <section>
-                <p><?php echo $post['content']; ?></p>
+                <p><?php echo $post->getContent(); ?></p>
             </section>
         </article>
     </div>

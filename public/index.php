@@ -1,6 +1,9 @@
 <?php
-include('../services/posts_manager.php');
-$posts = getAllPosts();
+include('../src/posts/post.php');
+include('../src/posts/posts_manager.php');
+
+$posts_manager = new PostsManager();
+$posts = $posts_manager->getAllPosts();
 ?>
 <!doctype html>
 <html>
@@ -40,15 +43,15 @@ $posts = getAllPosts();
                         <article class="article-card">
                             <div class="thumbnail">
                                 <div class="image-wrapper">
-                                    <img src="images/thumbnails/<?php echo $post['illustration_preview']; ?>"/>
+                                    <img src="images/thumbnails/<?php echo $post->getIllustrationPreview(); ?>"/>
                                 </div>
                                 <div class="caption">
-                                    <h3><?php echo $post['title']; ?></h3>
+                                    <h3><?php echo $post->getTitle(); ?></h3>
 
-                                    <p><?php echo $post['content_short']; ?> ...</p>
+                                    <p><?php echo $post->getContentShort(); ?> ...</p>
 
                                     <p>
-                                        <a href="/post-details.php?postSlug=<?php echo $post['slug']; ?>"
+                                        <a href="/post-details.php?postSlug=<?php echo $post->getSlug(); ?>"
                                            class="btn btn-primary" role="button">Lire la suite</a>
                                     </p>
                                 </div>
