@@ -1,20 +1,14 @@
 <?php
-include('../posts_mocks.php');
+include('../services/posts_manager.php');
 
 $post = null;
 $url_post_slug = null;
-
 if (isset($_GET['postSlug'])) {
     $url_post_slug = $_GET['postSlug'];
 }
 
 if ($url_post_slug !== null) {
-    foreach ($posts as $p) {
-        if ($p['slug'] === $url_post_slug) {
-            $post = $p;
-            break;
-        }
-    }
+    $post = getOnePostBySlug($_GET['postSlug']);
 }
 
 if ($post === null) {

@@ -1,5 +1,6 @@
 <?php
-include('../posts_mocks.php');
+include('../services/posts_manager.php');
+$posts = getAllPosts();
 ?>
 <!doctype html>
 <html>
