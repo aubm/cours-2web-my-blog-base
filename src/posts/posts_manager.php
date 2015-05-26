@@ -4,9 +4,9 @@ class PostsManager
 {
     private $_mock_file_path_name;
 
-    public function __construct()
+    public function __construct($mock_file_path_name)
     {
-        $this->_mock_file_path_name = __DIR__ . '/../../posts_mocks.json';
+        $this->_mock_file_path_name = $mock_file_path_name;
     }
 
     public function getAllPosts()

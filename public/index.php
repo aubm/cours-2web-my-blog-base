@@ -1,8 +1,10 @@
 <?php
+
 include('../src/posts/post.php');
 include('../src/posts/posts_manager.php');
+include('../src/posts/factory.php');
 
-$posts_manager = new PostsManager();
+$posts_manager = Factory::getPostsManager();
 $posts = $posts_manager->getAllPosts();
 ?>
 <!doctype html>

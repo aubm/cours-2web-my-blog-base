@@ -2,8 +2,9 @@
 
 include('../src/posts/post.php');
 include('../src/posts/posts_manager.php');
+include('../src/posts/factory.php');
 
-$posts_manager = new PostsManager();
+$posts_manager = Factory::getPostsManager();
 
 $post = null;
 $url_post_slug = null;
