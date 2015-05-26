@@ -22,7 +22,7 @@
                 <div class="collapse navbar-collapse" id="main-menu-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="/admin">Administration</a></li>
-                        <li><a href="/admin/post-edition.html">Ajouter un article</a></li>
+                        <li><a href="/admin/post-edition.php">Ajouter un article</a></li>
                         <li><a href="/">Déconnexion</a></li>
                     </ul>
                 </div>
@@ -42,42 +42,42 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><a href="/admin/post-edition.html">Liberté</a></td>
+                            <td><a href="/admin/post-edition.php">Liberté</a></td>
                             <td>liberte</td>
                             <td>Sur mes cahiers d’écolier Sur mon pupitre et les arbres Sur le sable sur la neige ...</td>
                             <td>01-04-2015</td>
                             <td><button class="btn btn-danger">Supprimer</button></td>
                         </tr>
                         <tr>
-                            <td><a href="/admin/post-edition.html">Le lac</a></td>
+                            <td><a href="/admin/post-edition.php">Le lac</a></td>
                             <td>le-lac</td>
                             <td>Ainsi, toujours poussés vers de nouveaux rivages, Dans la nuit éternelle emportés sans retour ...</td>
                             <td>02-04-2015</td>
                             <td><button class="btn btn-danger">Supprimer</button></td>
                         </tr>
                         <tr>
-                            <td><a href="/admin/post-edition.html">Au lecteur</a></td>
+                            <td><a href="/admin/post-edition.php">Au lecteur</a></td>
                             <td>au-lecteur</td>
                             <td>La sottise, l'erreur, le péché, la lésine, Occupent nos esprits et travaillent nos corps ...</td>
                             <td>03-04-2015</td>
                             <td><button class="btn btn-danger">Supprimer</button></td>
                         </tr>
                         <tr>
-                            <td><a href="/admin/post-edition.html">Élévation</a></td>
+                            <td><a href="/admin/post-edition.php">Élévation</a></td>
                             <td>elevation</td>
                             <td>Au-dessus des étangs, au-dessus des vallées, Des montagnes, des bois, des nuages, des mers ...</td>
                             <td>04-04-2015</td>
                             <td><button class="btn btn-danger">Supprimer</button></td>
                         </tr>
                         <tr>
-                            <td><a href="/admin/post-edition.html">L'albatros</a></td>
+                            <td><a href="/admin/post-edition.php">L'albatros</a></td>
                             <td>l-albatros</td>
                             <td>Souvent, pour s'amuser, les hommes d'équipage Prennent des albatros, vastes oiseaux des mers ...</td>
                             <td>05-04-2015</td>
                             <td><button class="btn btn-danger">Supprimer</button></td>
                         </tr>
                         <tr>
-                            <td><a href="/admin/post-edition.html">Chanson d'automne</a></td>
+                            <td><a href="/admin/post-edition.php">Chanson d'automne</a></td>
                             <td>chanson-d-automne</td>
                             <td>Les sanglots longs Des violons De l'automne Blessent mon coeur D'une langueur Monotone ...</td>
                             <td>06-04-2015</td>

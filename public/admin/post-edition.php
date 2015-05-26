@@ -22,7 +22,7 @@
                 <div class="collapse navbar-collapse" id="main-menu-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="/admin">Administration</a></li>
-                        <li class="active"><a href="/admin/post-edition.html">Ajouter un article</a></li>
+                        <li class="active"><a href="/admin/post-edition.php">Ajouter un article</a></li>
                         <li><a href="/">Déconnexion</a></li>
                     </ul>
                 </div>

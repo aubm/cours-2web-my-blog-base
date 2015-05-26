@@ -21,7 +21,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="main-menu-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/index.html">Accueil</a></li>
+                        <li class="active"><a href="/index.php">Accueil</a></li>
                     </ul>
                 </div>
             </div>
