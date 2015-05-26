@@ -1,5 +1,7 @@
 <?php
 
+namespace MyBlog\Posts;
+
 class Post
 {
     private $title;

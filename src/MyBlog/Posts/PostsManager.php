@@ -1,5 +1,7 @@
 <?php
 
+namespace MyBlog\Posts;
+
 class PostsManager
 {
     private $_mock_file_path_name;

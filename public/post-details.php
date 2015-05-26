@@ -1,10 +1,8 @@
 <?php
 
-include('../src/posts/post.php');
-include('../src/posts/posts_manager.php');
-include('../src/posts/factory.php');
+include('../bootstrap.php');
 
-$posts_manager = Factory::getPostsManager();
+$posts_manager = \MyBlog\Posts\Factory::getPostsManager();
 
 $post = null;
 $url_post_slug = null;
