@@ -2,7 +2,8 @@
 
 function getAllPosts()
 {
-    include __DIR__ . '/../posts_mocks.php';
+    $json_data = file_get_contents(__DIR__ . '/../posts_mocks.json');
+    $posts = json_decode($json_data, true);
     return $posts;
 }
 
