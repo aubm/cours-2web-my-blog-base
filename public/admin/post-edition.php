@@ -9,34 +9,55 @@ use \MyBlog\Http\Request;
 use MyBlog\Validation\ValidationErrorsCollection;
 use MyBlog\Validation\HasValidationErrorsException;
 
-$post = new Post();
-$validation_errors = new ValidationErrorsCollection();
 $is_new_post = !isset($_GET['article_id']);
+$posts_manager = PostsFactory::getPostsManager();
+$navigation_helper = new NavigationHelper();
+
+if ($is_new_post) {
+    $post = new Post();
+} else {
+    $post = $posts_manager->getOnePostById($_GET['article_id']);
+    if (!$post) {
+        $navigation_helper->redirectClient('/admin');
+    }
+}
+
+$validation_errors = new ValidationErrorsCollection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post'])) {
+    if (isset($_POST['post']['title'])) {
+        $post->setTitle($_POST['post']['title']);
+    }
+
+    if (isset($_POST['post']['slug'])) {
+        $post->setSlug($_POST['post']['slug']);
+    }
+
+    if (isset($_POST['post']['content_short'])) {
+        $post->setContentShort($_POST['post']['content_short']);
+    }
+
+    if (isset($_POST['post']['content'])) {
+        $post->setContent($_POST['post']['content']);
+    }
+
     $request = new Request();
-    $navigation_helper = new NavigationHelper();
-    $posts_manager = PostsFactory::getPostsManager();
-    if ($is_new_post) {
-        $post = new Post($_POST['post']);
+    $uploaded_files = $request->getRequestFilesFromGlobals();
 
-        $uploaded_files = $request->getRequestFilesFromGlobals();
+    if (isset($uploaded_files['post']['illustration_original'])) {
+        $post->setUploadedIllustrationOriginal($uploaded_files['post']['illustration_original']);
+    }
 
-        if (isset($uploaded_files['post']['illustration_original'])) {
-            $post->setUploadedIllustrationOriginal($uploaded_files['post']['illustration_original']);
-        }
+    if (isset($uploaded_files['post']['illustration_preview'])) {
+        $post->setUploadedIllustrationPreview($uploaded_files['post']['illustration_preview']);
+    }
 
-        if (isset($uploaded_files['post']['illustration_preview'])) {
-            $post->setUploadedIllustrationPreview($uploaded_files['post']['illustration_preview']);
-        }
-
-        try {
-            $posts_manager->validatePost($post);
-            $posts_manager->savePost($post);
-            $navigation_helper->redirectClient('/admin');
-        } catch (HasValidationErrorsException $e) {
-            $validation_errors = $e->getValidationErrorsCollection();
-        }
+    try {
+        $posts_manager->validatePost($post);
+        $posts_manager->savePost($post);
+        $navigation_helper->redirectClient('/admin');
+    } catch (HasValidationErrorsException $e) {
+        $validation_errors = $e->getValidationErrorsCollection();
     }
 }
 ?>

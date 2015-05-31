@@ -83,10 +83,12 @@ class PostsManagerMySql implements PostsManagerInterface
                     new ValidationError('slug', 'Le format de l\'alias est invalide')
                 );
             } else {
-                if ($this->getOnePostBySlug($post_slug)) {
-                    $validation_errors_collection->addValidationError(
-                        new ValidationError('slug', 'Un article utilise déjà cet alias')
-                    );
+                if (!$post->getId()) {
+                    if ($this->getOnePostBySlug($post_slug)) {
+                        $validation_errors_collection->addValidationError(
+                            new ValidationError('slug', 'Un article utilise déjà cet alias')
+                        );
+                    }
                 }
             }
         } else {
@@ -97,42 +99,44 @@ class PostsManagerMySql implements PostsManagerInterface
 
         // Validate illustration_original
         $post_illustration_original = $post->getIllustrationOriginal();
-        if (!$post_illustration_original) {
-            $post_uploaded_illustration_original = $post->getUploadedIllustrationOriginal();
-            if (!$post_uploaded_illustration_original) {
+        $post_uploaded_illustration_original = $post->getUploadedIllustrationOriginal();
+
+        if (!$post_illustration_original && !$post_uploaded_illustration_original) {
+            $validation_errors_collection->addValidationError(
+                new ValidationError('illustration_original', 'Vous devez choisir une image pour illustrer l\'article')
+            );
+        }
+
+        if ($post_uploaded_illustration_original) {
+            if (!in_array($post_uploaded_illustration_original->getType(),
+                ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'])
+            ) {
                 $validation_errors_collection->addValidationError(
-                    new ValidationError('illustration_original', 'Vous devez choisir une image pour illustrer l\'article')
+                    new ValidationError('illustration_original',
+                        'Le format du fichier n\'est pas autorisé')
                 );
-            } else {
-                if (!in_array($post_uploaded_illustration_original->getType(),
-                    ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'])
-                ) {
-                    $validation_errors_collection->addValidationError(
-                        new ValidationError('illustration_original',
-                            'Le format du fichier n\'est pas autorisé')
-                    );
-                }
             }
         }
 
         // Validation illustration_preview
         $post_illustration_preview = $post->getIllustrationPreview();
-        if (!$post_illustration_preview) {
-            $post_uploaded_illustration_preview = $post->getUploadedIllustrationPreview();
-            if (!$post_uploaded_illustration_preview) {
+        $post_uploaded_illustration_preview = $post->getUploadedIllustrationPreview();
+
+        if (!$post_illustration_preview && !$post_uploaded_illustration_preview) {
+            $validation_errors_collection->addValidationError(
+                new ValidationError('illustration_preview',
+                    'Vous devez choisir une image pour la prévisualisation de l\'article')
+            );
+        }
+
+        if ($post_uploaded_illustration_preview) {
+            if (!in_array($post_uploaded_illustration_preview->getType(),
+                ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'])
+            ) {
                 $validation_errors_collection->addValidationError(
                     new ValidationError('illustration_preview',
-                        'Vous devez choisir une image pour la prévisualisation de l\'article')
+                        'Le format du fichier n\'est pas autorisé')
                 );
-            } else {
-                if (!in_array($post_uploaded_illustration_preview->getType(),
-                    ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'])
-                ) {
-                    $validation_errors_collection->addValidationError(
-                        new ValidationError('illustration_preview',
-                            'Le format du fichier n\'est pas autorisé')
-                    );
-                }
             }
         }
 
@@ -165,18 +169,30 @@ class PostsManagerMySql implements PostsManagerInterface
         $files_helper = new FilesHelper();
 
         if ($post->getUploadedIllustrationOriginal()) {
-            $illustration_original_filename =
-                $files_helper->moveRequestFile($post->getUploadedIllustrationOriginal(), $this->posts_original_images_dir);
+            $illustration_original_filename = $files_helper->moveRequestFile(
+                $post->getUploadedIllustrationOriginal(),
+                $this->posts_original_images_dir
+            );
+            if ($current_illustration_original = $post->getIllustrationOriginal()) {
+                $files_helper->deleteFile($this->posts_original_images_dir, $current_illustration_original);
+            }
             $post->setIllustrationOriginal($illustration_original_filename);
         }
 
         if ($post->getUploadedIllustrationPreview()) {
-            $illustration_preview_filename =
-                $files_helper->moveRequestFile($post->getUploadedIllustrationPreview(), $this->posts_original_thumbnails_dir);
+            $illustration_preview_filename = $files_helper->moveRequestFile(
+                $post->getUploadedIllustrationPreview(),
+                $this->posts_original_thumbnails_dir
+            );
+            if ($current_illustration_preview = $post->getIllustrationPreview()) {
+                $files_helper->deleteFile($this->posts_original_thumbnails_dir, $current_illustration_preview);
+            }
             $post->setIllustrationPreview($illustration_preview_filename);
         }
 
-        if (!$post->getId()) {
+        if ($post->getId()) {
+            $this->_updatePost($post);
+        } else {
             $this->_insertNewPost($post);
         }
     }
@@ -193,6 +209,22 @@ class PostsManagerMySql implements PostsManagerInterface
         $statement->bindValue('illustration_preview', $post->getIllustrationPreview());
         $statement->bindValue('content_short', $post->getContentShort());
         $statement->bindValue('content', $post->getContent());
+        $statement->execute();
+    }
+
+    private function _updatePost(Post $post)
+    {
+        $query = 'UPDATE posts SET title = :title, slug = :slug, illustration_original = :illustration_original, ';
+        $query .= 'illustration_preview = :illustration_preview, content_short = :content_short, content = :content ';
+        $query .= 'WHERE id = :id';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue('title', $post->getTitle());
+        $statement->bindValue('slug', $post->getSlug());
+        $statement->bindValue('illustration_original', $post->getIllustrationOriginal());
+        $statement->bindValue('illustration_preview', $post->getIllustrationPreview());
+        $statement->bindValue('content_short', $post->getContentShort());
+        $statement->bindValue('content', $post->getContent());
+        $statement->bindValue('id', $post->getId());
         $statement->execute();
     }
 }

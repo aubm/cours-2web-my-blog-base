@@ -45,9 +45,19 @@ class Post
         return $this->title;
     }
 
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 
     public function getPublishedAt($format = null)
@@ -100,9 +110,19 @@ class Post
         return $this->content_short;
     }
 
+    public function setContentShort($content_short)
+    {
+        $this->content_short = $content_short;
+    }
+
     public function getContent()
     {
         return $this->content;
+    }
+
+    public function setContent($content)
+    {
+        $this->content = $content;
     }
 
     /**

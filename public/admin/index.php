@@ -50,7 +50,8 @@ $posts = $posts_manager->getAllPosts();
                     <tbody>
                         <?php foreach($posts as $post): ?>
                             <tr>
-                                <td><a href="/admin/post-edition.php"><?php echo $post->getTitle(); ?></a></td>
+                                <td><a href="/admin/post-edition.php?article_id=<?php echo $post->getId(); ?>">
+                                        <?php echo $post->getTitle(); ?></a></td>
                                 <td><?php echo $post->getSlug(); ?></td>
                                 <td><?php echo $post->getContentShort(); ?> ...</td>
                                 <td><?php echo $post->getPublishedAt(); ?></td>

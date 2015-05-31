@@ -30,4 +30,9 @@ class FilesHelper
 
         return $file_extension;
     }
+
+    public function deleteFile($directory, $filename)
+    {
+        unlink($directory . '/' . $filename);
+    }
 }
