@@ -39,4 +39,26 @@ class PostsManagerMySql implements PostsManagerInterface
         }
         return $post;
     }
+
+    public function savePost(Post $post)
+    {
+        if (!$post->getId()) {
+            $this->_insertNewPost($post);
+        }
+    }
+
+    private function _insertNewPost(Post $post)
+    {
+        $query = 'INSERT INTO posts (title, slug, published_at, illustration_original, illustration_preview, content_short, content)';
+        $query .= 'VALUES (:title, :slug, :published_at, :illustration_original, :illustration_preview, :content_short, :content)';
+        $statement = $this->db->prepare($query);
+        $statement->bindValue('title', $post->getTitle());
+        $statement->bindValue('slug', $post->getSlug());
+        $statement->bindValue('published_at', $post->getPublishedAt('Y-m-d h:i:s'));
+        $statement->bindValue('illustration_original', '');
+        $statement->bindValue('illustration_preview', '');
+        $statement->bindValue('content_short', $post->getContentShort());
+        $statement->bindValue('content', $post->getContent());
+        $statement->execute();
+    }
 }

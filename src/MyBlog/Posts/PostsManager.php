@@ -39,4 +39,9 @@ class PostsManager implements PostsManagerInterface
 
         return $post;
     }
+
+    public function savePost(Post $post)
+    {
+        // TODO: implement method
+    }
 }

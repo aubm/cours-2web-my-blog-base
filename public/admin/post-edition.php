@@ -1,3 +1,23 @@
+<?php
+
+require_once(__DIR__ . '/../../bootstrap.php');
+
+use \MyBlog\Posts\Post;
+use \MyBlog\Posts\Factory as PostsFactory;
+use \MyBlog\Utils\NavigationHelper;
+
+$is_new_post = !isset($_GET['article_id']);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post'])) {
+    $navigation_helper = new NavigationHelper();
+    $posts_manager = PostsFactory::getPostsManager();
+    if ($is_new_post) {
+        $post = new Post($_POST['post']);
+        $posts_manager->savePost($post);
+        $navigation_helper->redirectClient('/admin');
+    }
+}
+?>
 <!doctype html>
 <html>
     <head>
@@ -30,39 +50,43 @@
         </nav>
         <div class="page-content">
             <div class="container">
-                <h1>Modification d'un article</h1>
-                <form enctype="multipart/form-data">
+                <?php if($is_new_post): ?>
+                    <h1>Ajout d'un nouvel article</h1>
+                <?php else: ?>
+                    <h1>Modification d'un article</h1>
+                <?php endif; ?>
+                <form method="post" enctype="multipart/form-data">
                     <fieldset>
                         <legend>Méta-données</legend>
                         <div class="form-group">
                             <label for="title">Titre</label>
-                            <input type="text" name="title" id="title" class="form-control"/>
+                            <input type="text" name="post[title]" id="title" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label for="slug">Alias</label>
-                            <input type="text" name="slug" id="slug" class="form-control"/>
+                            <input type="text" name="post[slug]" id="slug" class="form-control"/>
                         </div>
                     </fieldset>
                     <fieldset>
                         <legend>Médias</legend>
                         <div class="form-group">
                             <label for="illustration_original">Illustration</label>
-                            <input type="file" name="illustration_original" id="illustration_original"/>
+                            <input type="file" name="post[illustration_original]" id="illustration_original"/>
                         </div>
                         <div class="form-group">
                             <label for="illustration_preview">Prévisualisation de l'illustration</label>
-                            <input type="file" name="illustration_preview" id="illustration_preview"/>
+                            <input type="file" name="post[illustration_preview]" id="illustration_preview"/>
                         </div>
                     </fieldset>
                     <fieldset>
                         <legend>Contenu</legend>
                         <div class="form-group">
                             <label for="content_short">Contenu (version courte)</label>
-                            <textarea id="content_short" name="content_short" class="form-control"></textarea>
+                            <textarea id="content_short" name="post[content_short]" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="content">Contenu</label>
-                            <textarea id="content" name="content" class="form-control"></textarea>
+                            <textarea id="content" name="post[content]" class="form-control"></textarea>
                         </div>
                     </fieldset>
                     <div class="form-group">
