@@ -4,6 +4,7 @@ namespace MyBlog\Posts;
 
 class Post
 {
+    private $id;
     private $title;
     private $slug;
     private $published_at;
@@ -14,6 +15,7 @@ class Post
 
     public function __construct($state)
     {
+        $this->id = $state['id'];
         $this->title = $state['title'];
         $this->slug = $state['slug'];
         $this->published_at = $state['published_at'];
@@ -21,6 +23,11 @@ class Post
         $this->illustration_preview = $state['illustration_preview'];
         $this->content_short = $state['content_short'];
         $this->content = $state['content'];
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function getTitle()

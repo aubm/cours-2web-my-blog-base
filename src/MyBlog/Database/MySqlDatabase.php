@@ -23,6 +23,7 @@ class MySqlDatabase extends \PDO
     {
         if (null === self::$_instance) {
             self::$_instance = new self();
+            self::$_instance->exec('SET CHARACTER SET utf8');
         }
         return self::$_instance;
     }
