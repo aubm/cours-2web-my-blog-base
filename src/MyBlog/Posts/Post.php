@@ -42,7 +42,25 @@ class Post
 
     public function getPublishedAt()
     {
-        return $this->published_at;
+        $week_days_map = [
+            '1' => 'Lundi', '2' => 'Mardi', '3' => 'Mercredi', '4' => 'Jeudi',
+            '5' => 'Vendredi', '6' => 'Samedi', '7' => 'Dimanche'
+        ];
+        $months_map = [
+            '1' => 'Janvier', '2' => 'Février', '3' => 'Mars', '4' => 'Avril',
+            '5' => 'Mai', '6' => 'Juin', '7' => 'Juillet', '8' => 'Août',
+            '9' => 'Septembre', '10' => 'Octobre', '11' => 'Novembre',
+            '12' => 'Décembre'
+        ];
+
+        $published_at = new \Datetime($this->published_at);
+
+        $date_string = '';
+        $date_string .= $week_days_map[$published_at->format('N')] . ' ';
+        $date_string .= $published_at->format('d') . ' ';
+        $date_string .= $months_map[$published_at->format('n')] . ' ';
+        $date_string .= $published_at->format('Y');
+        return $date_string;
     }
 
     public function getIllustrationOriginal()
