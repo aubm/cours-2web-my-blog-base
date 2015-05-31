@@ -14,6 +14,12 @@ interface PostsManagerInterface
      */
     public function getOnePostBySlug($post_slug);
 
+
+    /**
+     * @return Post
+     */
+    public function getOnePostById($post_id);
+
     /**
      * @throw \MyBlog\Validation\HasValidationErrorsException
      * @param Post $post

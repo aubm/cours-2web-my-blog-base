@@ -50,6 +50,19 @@ class PostsManagerMySql implements PostsManagerInterface
         return $post;
     }
 
+    public function getOnePostById($post_id)
+    {
+        $post = null;
+        $statement = $this->db->prepare('SELECT * FROM posts WHERE id = :id');
+        $statement->bindParam('id', $post_id);
+        $statement->execute();
+        $row = $statement->fetch(\PDO::FETCH_ASSOC);
+        if ($row) {
+            $post = new Post($row);
+        }
+        return $post;
+    }
+
     public function validatePost(Post $post)
     {
         $validation_errors_collection = new ValidationErrorsCollection();

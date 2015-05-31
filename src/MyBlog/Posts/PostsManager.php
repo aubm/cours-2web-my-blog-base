@@ -40,6 +40,11 @@ class PostsManager implements PostsManagerInterface
         return $post;
     }
 
+    public function getOnePostById($post_id)
+    {
+        // TODO: implement method
+    }
+
     public function validatePost(Post $post)
     {
         // TODO: implement method
