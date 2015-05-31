@@ -20,6 +20,6 @@ class ValidationError
 
     public function __toString()
     {
-        return $this->field . ' : ' . $this->message;
+        return $this->message;
     }
 }

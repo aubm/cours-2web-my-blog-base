@@ -40,6 +40,11 @@ class PostsManager implements PostsManagerInterface
         return $post;
     }
 
+    public function validatePost(Post $post)
+    {
+        // TODO: implement method
+    }
+
     public function savePost(Post $post)
     {
         // TODO: implement method
