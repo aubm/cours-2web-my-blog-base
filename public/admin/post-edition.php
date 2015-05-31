@@ -5,13 +5,16 @@ require_once(__DIR__ . '/../../bootstrap.php');
 use \MyBlog\Posts\Post;
 use \MyBlog\Posts\Factory as PostsFactory;
 use \MyBlog\Utils\NavigationHelper;
+use \MyBlog\Http\Request;
 
 $is_new_post = !isset($_GET['article_id']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post'])) {
+    $request = new Request();
     $navigation_helper = new NavigationHelper();
     $posts_manager = PostsFactory::getPostsManager();
     if ($is_new_post) {
+        $uploaded_files = $request->getRequestFilesFromGlobals();
         $post = new Post($_POST['post']);
         $posts_manager->savePost($post);
         $navigation_helper->redirectClient('/admin');
