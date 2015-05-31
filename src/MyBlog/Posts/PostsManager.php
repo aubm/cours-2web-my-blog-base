@@ -2,7 +2,7 @@
 
 namespace MyBlog\Posts;
 
-class PostsManager
+class PostsManager implements PostsManagerInterface
 {
     private $_mock_file_path_name;
 
