@@ -13,7 +13,7 @@ $posts = $posts_manager->getAllPosts();
     <link href="/dist/app.min.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/dist/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/src/javascripts/remove_posts.js"></script>
+    <script type="text/javascript" src="/src/javascripts/remove_posts.jquery.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top main-navbar">
