@@ -13,6 +13,7 @@ $posts = $posts_manager->getAllPosts();
     <link href="/dist/app.min.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/dist/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/src/javascripts/remove_posts.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top main-navbar">
@@ -48,19 +49,18 @@ $posts = $posts_manager->getAllPosts();
                 <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="posts-list">
             <?php foreach ($posts as $post): ?>
-                <tr>
+                <tr id="post-<?php echo $post->getId(); ?>">
                     <td><a href="/admin/post-edition.php?article_id=<?php echo $post->getId(); ?>">
                             <?php echo $post->getTitle(); ?></a></td>
                     <td><?php echo $post->getSlug(); ?></td>
                     <td><?php echo $post->getContentShort(); ?> ...</td>
                     <td><?php echo $post->getPublishedAt(); ?></td>
                     <td>
-                        <form method="post" action="/admin/delete-post.php">
-                            <input type="hidden" name="post_id" value="<?php echo $post->getId(); ?>"/>
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
-                        </form>
+                        <button class="btn btn-danger remove-post" data-post-id="<?php echo $post->getId() ?>">
+                            Supprimer
+                        </button>
                     </td>
                 </tr>
             <?php endforeach; ?>
