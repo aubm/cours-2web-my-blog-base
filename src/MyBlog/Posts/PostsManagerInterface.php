@@ -30,4 +30,6 @@ interface PostsManagerInterface
      * @param Post $post
      */
     public function savePost(Post $post);
+
+    public function findAndDeletePostById($post_id);
 }

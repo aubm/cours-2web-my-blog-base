@@ -54,4 +54,9 @@ class PostsManager implements PostsManagerInterface
     {
         // TODO: implement method
     }
+
+    public function findAndDeletePostById($post_id)
+    {
+        // TODO: implement method
+    }
 }

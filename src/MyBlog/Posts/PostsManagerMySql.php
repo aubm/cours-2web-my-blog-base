@@ -164,6 +164,26 @@ class PostsManagerMySql implements PostsManagerInterface
         }
     }
 
+    public function findAndDeletePostById($post_id)
+    {
+        $post = $this->getOnePostById($post_id);
+        if ($post !== null) {
+            $files_helper = new FilesHelper();
+
+            if ($current_illustration_original = $post->getIllustrationOriginal()) {
+                $files_helper->deleteFile($this->posts_original_images_dir, $current_illustration_original);
+            }
+
+            if ($current_illustration_preview = $post->getIllustrationPreview()) {
+                $files_helper->deleteFile($this->posts_original_thumbnails_dir, $current_illustration_preview);
+            }
+
+            $statement = $this->db->prepare('DELETE FROM posts WHERE id = :post_id');
+            $statement->bindValue('post_id', $post->getId());
+            $statement->execute();
+        }
+    }
+
     public function savePost(Post $post)
     {
         $files_helper = new FilesHelper();
