@@ -11,10 +11,11 @@ class Factory
      */
     public static function getPostsManager()
     {
-        $mock_file_path_name = __DIR__ . '/../../../posts_mocks.json';
+        $posts_original_images_dir = __DIR__ . '/../../../public/images/originals';
+        $posts_original_thumbnails_dir = __DIR__ . '/../../../public/images/thumbnails';
 
         if (self::$posts_manager === null) {
-            self::$posts_manager = new PostsManagerMySql($mock_file_path_name);
+            self::$posts_manager = new PostsManagerMySql($posts_original_images_dir, $posts_original_thumbnails_dir);
         }
 
         return self::$posts_manager;

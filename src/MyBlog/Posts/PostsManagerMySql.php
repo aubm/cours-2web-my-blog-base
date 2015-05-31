@@ -3,6 +3,7 @@
 namespace MyBlog\Posts;
 
 use MyBlog\Database\MySqlDatabase;
+use MyBlog\Utils\FilesHelper;
 
 class PostsManagerMySql implements PostsManagerInterface
 {
@@ -11,9 +12,15 @@ class PostsManagerMySql implements PostsManagerInterface
      */
     private $db;
 
-    public function __construct()
+    private $posts_original_images_dir;
+    private $posts_original_thumbnails_dir;
+
+    public function __construct($posts_original_images_dir, $posts_original_thumbnails_dir)
     {
         $this->db = MySqlDatabase::getInstance();
+
+        $this->posts_original_images_dir = $posts_original_images_dir;
+        $this->posts_original_thumbnails_dir = $posts_original_thumbnails_dir;
     }
 
     public function getAllPosts()
@@ -42,6 +49,20 @@ class PostsManagerMySql implements PostsManagerInterface
 
     public function savePost(Post $post)
     {
+        $files_helper = new FilesHelper();
+
+        if ($post->getUploadedIllustrationOriginal()) {
+            $illustration_original_filename =
+                $files_helper->moveRequestFile($post->getUploadedIllustrationOriginal(), $this->posts_original_images_dir);
+            $post->setIllustrationOriginal($illustration_original_filename);
+        }
+
+        if ($post->getUploadedIllustrationPreview()) {
+            $illustration_preview_filename =
+                $files_helper->moveRequestFile($post->getUploadedIllustrationPreview(), $this->posts_original_thumbnails_dir);
+            $post->setIllustrationPreview($illustration_preview_filename);
+        }
+
         if (!$post->getId()) {
             $this->_insertNewPost($post);
         }
@@ -55,8 +76,8 @@ class PostsManagerMySql implements PostsManagerInterface
         $statement->bindValue('title', $post->getTitle());
         $statement->bindValue('slug', $post->getSlug());
         $statement->bindValue('published_at', $post->getPublishedAt('Y-m-d h:i:s'));
-        $statement->bindValue('illustration_original', '');
-        $statement->bindValue('illustration_preview', '');
+        $statement->bindValue('illustration_original', $post->getIllustrationOriginal());
+        $statement->bindValue('illustration_preview', $post->getIllustrationPreview());
         $statement->bindValue('content_short', $post->getContentShort());
         $statement->bindValue('content', $post->getContent());
         $statement->execute();

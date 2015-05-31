@@ -14,8 +14,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post'])) {
     $navigation_helper = new NavigationHelper();
     $posts_manager = PostsFactory::getPostsManager();
     if ($is_new_post) {
-        $uploaded_files = $request->getRequestFilesFromGlobals();
         $post = new Post($_POST['post']);
+
+        $uploaded_files = $request->getRequestFilesFromGlobals();
+
+        if (isset($uploaded_files['post']['illustration_original'])) {
+            $post->setUploadedIllustrationOriginal($uploaded_files['post']['illustration_original']);
+        }
+
+        if (isset($uploaded_files['post']['illustration_preview'])) {
+            $post->setUploadedIllustrationPreview($uploaded_files['post']['illustration_preview']);
+        }
+
         $posts_manager->savePost($post);
         $navigation_helper->redirectClient('/admin');
     }

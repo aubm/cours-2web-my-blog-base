@@ -2,6 +2,8 @@
 
 namespace MyBlog\Posts;
 
+use MyBlog\Http\RequestFile;
+
 class Post
 {
     private $id;
@@ -12,6 +14,9 @@ class Post
     private $illustration_preview;
     private $content_short;
     private $content;
+
+    private $uploaded_illustration_original;
+    private $uploaded_illustration_preview;
 
     public function __construct($state = [])
     {
@@ -75,9 +80,19 @@ class Post
         return $this->illustration_original;
     }
 
+    public function setIllustrationOriginal($illustration_original)
+    {
+        $this->illustration_original = $illustration_original;
+    }
+
     public function getIllustrationPreview()
     {
         return $this->illustration_preview;
+    }
+
+    public function setIllustrationPreview($illustration_preview)
+    {
+        $this->illustration_preview = $illustration_preview;
     }
 
     public function getContentShort()
@@ -88,5 +103,31 @@ class Post
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * @return RequestFile
+     */
+    public function getUploadedIllustrationOriginal()
+    {
+        return $this->uploaded_illustration_original;
+    }
+
+    /**
+     * @return RequestFile
+     */
+    public function getUploadedIllustrationPreview()
+    {
+        return $this->uploaded_illustration_preview;
+    }
+
+    public function setUploadedIllustrationOriginal(RequestFile $uploaded_illustration_original)
+    {
+        $this->uploaded_illustration_original = $uploaded_illustration_original;
+    }
+
+    public function setUploadedIllustrationPreview(RequestFile $uploaded_illustration_preview)
+    {
+        $this->uploaded_illustration_preview = $uploaded_illustration_preview;
     }
 }
