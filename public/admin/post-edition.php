@@ -2,6 +2,12 @@
 
 require_once(__DIR__ . '/../../bootstrap.php');
 
+$authentication_helper = \MyBlog\Security\Factory::getAuthenticationHelper();
+if (!$current_user = $authentication_helper->getCurrentUser()) {
+    $navigation_helper = new \MyBlog\Utils\NavigationHelper();
+    $navigation_helper->redirectClient('../login.php');
+}
+
 use \MyBlog\Posts\Post;
 use \MyBlog\Posts\Factory as PostsFactory;
 use \MyBlog\Utils\NavigationHelper;
@@ -81,13 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post'])) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/admin" class="navbar-brand">Mon blog - Administration</a>
+            <a href="/admin" class="navbar-brand">Bonjour <?= $current_user->getUsername() ?></a>
         </div>
         <div class="collapse navbar-collapse" id="main-menu-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/admin">Administration</a></li>
                 <li class="active"><a href="/admin/post-edition.php">Ajouter un article</a></li>
-                <li><a href="/">Déconnexion</a></li>
+                <li><a href="/logout.php">Déconnexion</a></li>
             </ul>
         </div>
     </div>
