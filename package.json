@@ -1,4 +1,13 @@
 {
+  "name": "my-blog-base",
+  "version": "1.0.0",
+  "description": "Fichiers servant de base au projet de support pour le cours de Supinfo 2WEB promo 2014/2015",
+  "author": "aur.baumann@gmail.com",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "http://git.aubm.net/cours-supinfo-2web/my-blog-base.git"
+  },
   "devDependencies": {
     "del": "^1.1.1",
     "gulp": "^3.8.11",
@@ -6,10 +15,16 @@
     "gulp-less": "^3.0.3",
     "gulp-minify-css": "^1.1.1",
     "gulp-notify": "^2.2.0",
-    "gulp-rename": "^1.2.2"
+    "gulp-rename": "^1.2.2",
+    "http-server": "^0.8.5"
   },
   "dependencies": {
     "bootstrap": "^3.3.4",
     "jquery": "^2.1.4"
+  },
+  "scripts": {
+    "preserve": "gulp",
+    "start": "npm install && npm run serve",
+    "serve": "http-server"
   }
 }
